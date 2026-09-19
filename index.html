@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TraffStat | Global Traffic & Media Buying Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#080808',
+                        cardBg: '#121212',
+                        accentGold: '#d4af37',
+                        accentGoldLight: '#f3e5ab',
+                        accentRed: '#e11d48',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-padding-top: 6.5rem; }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #080808;
+            background-image: url('img/watermarked_img_10434291128467773460.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #f1f5f9;
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #b8860b 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
+        .gold-glow { filter: drop-shadow(0 0 14px rgba(212, 175, 55, 0.28)); }
+
+        .badge-gold {
+            background: rgba(212, 175, 55, 0.10);
+            border: 1px solid rgba(212, 175, 55, 0.30);
+            color: #d4af37;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.12);
+        }
+
+        .hl-white { color: #FFFFFF; font-weight: 700; }
+        .amber { color: #DDA15E; }
+
+        .amber-underline {
+            color: #FFFFFF;
+            background-image: linear-gradient(90deg, #d4af37, #DDA15E);
+            background-repeat: no-repeat;
+            background-size: 100% 4px;
+            background-position: 0 92%;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .gold-border-glow:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .modal.is-open { visibility: visible; opacity: 1; }
+        .modal-panel {
+            background: #121212;
+            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25), 0 24px 50px rgba(0, 0, 0, 0.65);
+            transform: translateY(12px) scale(0.98);
+            transition: transform 0.2s ease;
+        }
+        .modal.is-open .modal-panel { transform: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .modal, .modal-panel { transition: none; }
+        }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offset: 3px; }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-accentGold selection:text-black">
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-darkBg/90 backdrop-blur-md border-b border-neutral-800/80 hover:opacity-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+
+            <!-- Логотип в левом верхнем углу -->
+            <a href="#" class="flex items-center group shrink-0">
+                <img src="img/logo.png" alt="TraffStat" class="h-[72px] w-auto object-contain drop-shadow group-hover:scale-105 transition-transform origin-left">
+            </a>
+
+            <!-- Навигация -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-accentGold transition-colors">О нас</a>
+                <a href="#verticals" class="hover:text-accentGold transition-colors">Вертикали</a>
+                <a href="#advantages" class="hover:text-accentGold transition-colors">Преимущества</a>
+                <a href="#stats" class="hover:text-accentGold transition-colors">Масштаб</a>
+            </nav>
+
+            <!-- Кнопка связи -->
+            <div>
+                <a href="https://t.me/your_telegram" target="_blank" rel="noopener noreferrer" data-modal-open class="inline-flex items-center px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <i class="fa-brands fa-telegram mr-2 text-base"></i> Связаться
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="top" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <div class="absolute inset-0 z-0 bg-gradient-to-t from-neutral-950/90 via-neutral-950/40 to-neutral-950/70"></div>
+        <div class="absolute top-1/3 left-1/4 w-72 h-72 bg-accentGold/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/5 w-64 h-64 bg-accentRed/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-xs font-semibold text-accentGold mb-3 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-accentRed animate-pulse"></span>
+                    <span>GLOBAL TRAFFIC & MEDIA BUYING INFRASTRUCTURE</span>
+                </div>
+                <p class="text-[11px] font-bold tracking-[0.28em] text-red-500 uppercase mb-8">Gambling · Betting · Crypto</p>
+
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-8 drop-shadow-lg">
+                    <span class="gold-gradient-text">Performance Traffic</span> That <span class="gold-gradient-text">Scales</span> With <span class="amber-underline">Your Business</span>, Not Against Your Accounts.
+                </h1>
+
+                <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mb-12 font-normal leading-relaxed drop-shadow">
+                    TraffStat runs <span class="badge-gold">in-house media buying</span>, <span class="gold-gradient-text font-bold">proprietary PWA infrastructure</span>, and compliant multi-channel acquisition for <span class="hl-white">advertisers</span>, <span class="hl-white">media buying teams</span>, and <span class="hl-white">enterprise partners</span> — with <span class="hl-white">traffic quality</span> and <span class="badge-gold">platform compliance</span> built into every campaign.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-4 mb-12">
+                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-base shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 text-center">
+                        Обсудить сотрудничество
+                    </a>
+                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="w-full sm:w-auto px-8 py-4 rounded-xl bg-neutral-900/80 border border-neutral-800 text-slate-200 font-bold text-base hover:bg-neutral-800 transition-all duration-300 text-center backdrop-blur-md">
+                        Become a Partner
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-white/10 text-sm text-slate-400">
+                    <div><span class="gold-gradient-text font-extrabold text-lg block">5+ Core</span> Traffic Sources</div>
+                    <div><span class="gold-gradient-text font-extrabold text-lg block">100% In-House</span> PWA Tech</div>
+                    <div><span class="gold-gradient-text font-extrabold text-lg block">Tier 1–3</span> GEO Coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics -->
+    <section id="stats" class="py-20 border-t border-neutral-800/60 bg-black/30 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 text-center">
+                    <div class="text-3xl sm:text-5xl font-black gold-gradient-text gold-glow mb-2">500+</div>
+                    <div class="text-sm font-medium text-slate-400">Successful <span class="hl-white">Ad Campaigns</span></div>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 text-center">
+                    <div class="text-3xl sm:text-5xl font-black gold-gradient-text gold-glow mb-2">50+</div>
+                    <div class="text-sm font-medium text-slate-400">Active <span class="hl-white">GEOs</span> Covered (<span class="hl-white">Tier 1–3</span>)</div>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 text-center">
+                    <div class="text-3xl sm:text-5xl font-black gold-gradient-text gold-glow mb-2">99.8%</div>
+                    <div class="text-sm font-medium text-slate-400">Campaign <span class="hl-white">Uptime</span> & <span class="hl-white">Traffic Quality</span></div>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 text-center">
+                    <div class="text-3xl sm:text-5xl font-black gold-gradient-text gold-glow mb-2">24/7</div>
+                    <div class="text-sm font-medium text-slate-400"><span class="hl-white">Technical Support</span> & Monitoring</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">What we <span class="gold-gradient-text">deliver</span></h2>
+                <p class="text-slate-400 text-base sm:text-lg">One team, one stack, from first click to <span class="hl-white">final conversion</span>.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 hover:border-accentGold/50 transition-all duration-300">
+                    <span class="badge-gold text-xs inline-block mb-6">CPA/CPL</span>
+                    <h3 class="text-xl font-bold mb-3 text-white">Performance-based media buying</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">You pay for <span class="hl-white">results</span>. We run the campaigns and report every <span class="hl-white">lead, install, and deposit</span> in real time.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 hover:border-accentGold/50 transition-all duration-300">
+                    <span class="badge-gold text-xs inline-block mb-6">PWA Infra</span>
+                    <h3 class="text-xl font-bold mb-3 text-white">Proprietary PWA engine</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">App-like funnels <span class="hl-white">without store dependency</span>, built, hosted, and maintained by our <span class="hl-white">in-house team</span>.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 hover:border-accentGold/50 transition-all duration-300">
+                    <span class="badge-gold text-xs inline-block mb-6">Direct Offers</span>
+                    <h3 class="text-xl font-bold mb-3 text-white">Direct partnerships</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Work with us directly on vetted offers: <span class="hl-white">no middlemen</span>, <span class="hl-white">clear terms</span>, and transparent reporting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traffic Sources & Industries -->
+    <section id="verticals" class="py-24 bg-black/30 backdrop-blur-sm border-t border-neutral-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-8">Traffic <span class="gold-gradient-text">Sources</span></h2>
+                <ul class="space-y-4 text-slate-300">
+                    <li class="flex items-start gap-3"><span class="text-accentGold font-bold mt-0.5">■</span> <span><strong class="gold-gradient-text">Meta Ads</strong> (Facebook & Instagram for PWA & In-App)</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accentGold font-bold mt-0.5">■</span> <span><strong class="gold-gradient-text">Google Ads</strong> (Search & UAC)</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accentGold font-bold mt-0.5">■</span> <span><strong class="gold-gradient-text">TikTok Ads</strong> (Global Reach & High Engagement)</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accentGold font-bold mt-0.5">■</span> <span><strong class="gold-gradient-text">In-House PWA Funnels</strong> for Acquisition</span></li>
+                    <li class="flex items-start gap-3"><span class="text-accentGold font-bold mt-0.5">■</span> <span><strong class="gold-gradient-text">SEO</strong> & Organic Growth</span></li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-8">Industries We <span class="gold-gradient-text">Cover</span></h2>
+                <div class="space-y-6">
+                    <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                        <h3 class="mb-3"><span class="badge-gold text-sm">White-Hat Verticals</span></h3>
+                        <p class="text-slate-400 text-sm leading-relaxed"><span class="hl-white">E-commerce, Lead Gen, Fintech, Mobile Apps.</span></p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                        <h3 class="mb-3"><span class="badge-gold text-sm">Regulated Verticals</span></h3>
+                        <p class="text-slate-400 text-sm leading-relaxed"><span class="hl-white">Online Gaming, Betting & Crypto</span> — available for <span class="hl-white">licensed operators</span> in compliant jurisdictions with <span class="hl-white">pre-launch verification</span>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="advantages" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">Enterprise <span class="gold-gradient-text">Ad Infrastructure</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 gold-border-glow transition-all duration-300">
+                    <h3 class="text-xl font-bold mb-3 text-white">Proprietary <span class="gold-gradient-text">PWA Engine</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span class="hl-white">High-converting</span> native app experiences without <span class="badge-gold">store dependency</span>.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <h3 class="text-xl font-bold mb-3 text-white"><span class="gold-gradient-text">Anti-Detect</span> & Warmup Stack</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Enterprise <span class="hl-white">account stability</span> and multi-layered <span class="hl-white">profile isolation</span>.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <h3 class="text-xl font-bold mb-3 text-white"><span class="gold-gradient-text">Real-Time</span> Attribution</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Deep telemetry tracking <span class="badge-gold">CPA</span> <span class="badge-gold">FTD</span> <span class="badge-gold">LTV</span> and <span class="hl-white">retention</span> parameters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section id="cases" class="py-24 bg-black/30 backdrop-blur-sm border-t border-neutral-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">Case <span class="gold-gradient-text">Studies</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800 gold-border-glow transition-all duration-300">
+                    <div class="text-xs text-slate-400 mb-2">iGaming & Betting Scale (<span class="hl-white">Licensed Operators</span>, Multi-GEO)</div>
+                    <h3 class="text-xl font-bold text-white mb-6">Meta Ads via <span class="gold-gradient-text">PWA Engine</span></h3>
+                    <div class="grid grid-cols-3 gap-4 border-t border-neutral-800 pt-6">
+                        <div>
+                            <div class="text-3xl font-extrabold gold-gradient-text gold-glow">1,200+</div>
+                            <div class="text-xs mt-2"><span class="badge-gold">FTDs</span></div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-extrabold text-white">$85</div>
+                            <div class="text-xs text-slate-400 mt-2"><span class="amber font-semibold">Avg</span> <span class="badge-gold">CPA</span></div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-extrabold gold-gradient-text gold-glow">125%</div>
+                            <div class="text-xs mt-2"><span class="badge-gold">ROI</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <div class="text-xs text-slate-400 mb-2">White-Hat Finance · <span class="amber font-semibold">Tier 1</span></div>
+                    <h3 class="text-xl font-bold text-white mb-6">Google <span class="gold-gradient-text">Search & UAC</span></h3>
+                    <div class="grid grid-cols-3 gap-4 border-t border-neutral-800 pt-6">
+                        <div>
+                            <div class="text-3xl font-extrabold gold-gradient-text gold-glow">8,500+</div>
+                            <div class="text-xs text-slate-400 mt-2"><span class="hl-white">Qualified Leads</span></div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-extrabold text-white">$18</div>
+                            <div class="text-xs mt-2"><span class="badge-gold">CPL</span></div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-extrabold gold-gradient-text gold-glow">35%</div>
+                            <div class="text-xs mt-2"><span class="badge-gold">Cost Reduction</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cooperation -->
+    <section id="cooperation" class="py-24 border-t border-neutral-800/60 bg-black/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-6">Start <span class="gold-gradient-text">Scaling Traffic</span> Today</h2>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+                <span class="gold-gradient-text font-bold">Direct advertisers</span>, <span class="gold-gradient-text font-bold">agency partners</span>, and <span class="gold-gradient-text font-bold">media buying teams</span> — let's build your <span class="hl-white">custom traffic acquisition channel</span>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-left">
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <h3 class="text-xl font-extrabold gold-gradient-text mb-3">Direct Advertisers</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed"><span class="badge-gold">CPA/CPL</span> campaigns run end to end by our <span class="hl-white">in-house team</span>.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <h3 class="text-xl font-extrabold gold-gradient-text mb-3">Media Buying Teams</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Plug into our <span class="badge-gold">PWA Infra</span> and scale your spend on <span class="hl-white">proven funnels</span>.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg/90 backdrop-blur-md border border-neutral-800">
+                    <h3 class="text-xl font-extrabold gold-gradient-text mb-3">Agency & B2B Partners</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">Access <span class="badge-gold">Direct Offers</span> and co-build <span class="hl-white">custom acquisition channels</span>.</p>
+                </div>
+            </div>
+
+            <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="inline-flex items-center px-10 py-5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-lg shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300">
+                <i class="fa-brands fa-telegram mr-3 text-2xl"></i> Написать в Telegram
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-neutral-800/60 text-center text-xs text-slate-500">
+        © 2026 TraffStat. All rights reserved. Compliant traffic acquisition infrastructure.
+    </footer>
+
+    <!-- Contact modal -->
+    <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-modal-close></div>
+        <div class="modal-panel relative z-10 w-full max-w-md rounded-2xl p-8 text-center">
+            <button type="button" data-modal-close aria-label="Close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition text-xl leading-none">✕</button>
+            <span class="badge-gold text-xs inline-block mb-4">TraffStat Team</span>
+            <h2 id="modal-title" class="text-2xl font-extrabold text-white mb-3">Talk to <span class="gold-gradient-text">our team</span></h2>
+            <p class="text-sm text-slate-400 leading-7 mb-6">Message us on Telegram with your vertical, target <span class="hl-white">GEOs</span>, and <span class="hl-white">traffic goals</span>. We'll build your <span class="badge-gold">CPA/CPL</span> campaign plan from there.</p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300">
+                    <i class="fa-brands fa-telegram mr-2 text-base"></i> Open Telegram
+                </a>
+                <button type="button" data-modal-close class="px-6 py-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-slate-200 font-bold text-sm hover:bg-neutral-800 transition-all duration-300">Not now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var modal = document.getElementById('contact-modal');
+            var panel = modal.querySelector('.modal-panel');
+            var closeButton = panel.querySelector('button[data-modal-close]');
+            var lastFocused = null;
+
+            function getFocusable() {
+                return panel.querySelectorAll('a[href], button:not([disabled])');
+            }
+
+            function openModal(event) {
+                event.preventDefault();
+                lastFocused = document.activeElement;
+                modal.classList.add('is-open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                requestAnimationFrame(function () { closeButton.focus(); });
+            }
+
+            function closeModal() {
+                modal.classList.remove('is-open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                if (lastFocused && typeof lastFocused.focus === 'function') { lastFocused.focus(); }
+            }
+
+            document.querySelectorAll('[data-modal-open]').forEach(function (el) {
+                el.addEventListener('click', openModal);
+            });
+
+            modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
+                el.addEventListener('click', closeModal);
+            });
+
+            document.addEventListener('focusin', function (event) {
+                if (!modal.classList.contains('is-open')) { return; }
+                if (!panel.contains(event.target)) { closeButton.focus(); }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (!modal.classList.contains('is-open')) { return; }
+                if (event.key === 'Escape') { closeModal(); return; }
+                if (event.key === 'Tab') {
+                    var focusable = getFocusable();
+                    var first = focusable[0];
+                    var last = focusable[focusable.length - 1];
+                    if (event.shiftKey && document.activeElement === first) {
+                        event.preventDefault();
+                        last.focus();
+                    } else if (!event.shiftKey && document.activeElement === last) {
+                        event.preventDefault();
+                        first.focus();
+                    }
+                }
+            });
+        })();
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('opacity-40');
+            } else {
+                header.classList.remove('opacity-40');
+            }
+        });
+    </script>
+
+</body>
+</html>
