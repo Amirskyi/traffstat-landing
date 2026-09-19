@@ -1,32 +1,32 @@
 # TraffStat
 
-Лендинг TraffStat — global traffic & media buying infrastructure для Gambling, Betting и Crypto.
+TraffStat landing page — global traffic & media buying infrastructure for Gambling, Betting, and Crypto.
 
-## Структура
+## Structure
 
 ```
 Traffstat/
-├── index.html          # главная страница
+├── index.html          # homepage
 ├── img/
-│   ├── logo.png        # логотип в шапке
-│   ├── logo-full.png   # полный логотип (запасной ассет)
-│   └── watermarked_img_10434291128467773460.jpg  # фоновое изображение
+│   ├── logo.png        # header logo
+│   ├── logo-full.png   # full logo (fallback asset)
+│   └── watermarked_img_10434291128467773460.jpg  # background image
 ├── README.md
 └── .gitignore
 ```
 
-## Локальный просмотр
+## Local preview
 
-Откройте `index.html` в браузере или поднимите простой сервер из корня проекта:
+Open `index.html` in a browser or start a simple server from the project root:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Сайт будет доступен по адресу `http://localhost:8080`.
+The site will be available at `http://localhost:8080`.
 
-## Публикация на GitHub Pages
+## Publishing on GitHub Pages
 
-1. Создайте репозиторий на GitHub и загрузите эту папку.
-2. В Settings → Pages выберите ветку `main` и папку `/ (root)`.
-3. После деплоя сайт откроется по адресу `https://<username>.github.io/<repo>/`.
+1. Create a GitHub repository and upload this folder.
+2. In Settings → Pages, select the `main` branch and the `/ (root)` folder.
+3. After deploy, the site will open at `https://<username>.github.io/<repo>/`.
