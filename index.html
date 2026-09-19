@@ -82,33 +82,6 @@
             border: 1px solid rgba(212, 175, 55, 0.6);
         }
 
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            visibility: hidden;
-            opacity: 0;
-            transition: opacity 0.2s ease, visibility 0.2s ease;
-        }
-        .modal.is-open { visibility: visible; opacity: 1; }
-        .modal-panel {
-            background: #121212;
-            -webkit-backdrop-filter: blur(18px);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.25), 0 24px 50px rgba(0, 0, 0, 0.65);
-            transform: translateY(12px) scale(0.98);
-            transition: transform 0.2s ease;
-        }
-        .modal.is-open .modal-panel { transform: none; }
-        @media (prefers-reduced-motion: reduce) {
-            .modal, .modal-panel { transition: none; }
-        }
-
         a:focus-visible, button:focus-visible { outline: 2px solid #d4af37; outline-offset: 3px; }
     </style>
 </head>
@@ -133,7 +106,7 @@
 
             <!-- Кнопка связи -->
             <div>
-                <a href="https://t.me/your_telegram" target="_blank" rel="noopener noreferrer" data-modal-open class="inline-flex items-center px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
+                <a href="https://t.me/traffstatt" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-0.5">
                     <i class="fa-brands fa-telegram mr-2 text-base"></i> Связаться
                 </a>
             </div>
@@ -162,10 +135,10 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center gap-4 mb-12">
-                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-base shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 text-center">
+                    <a href="https://t.me/traffstatt" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-base shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 text-center">
                         Обсудить сотрудничество
                     </a>
-                    <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="w-full sm:w-auto px-8 py-4 rounded-xl bg-neutral-900/80 border border-neutral-800 text-slate-200 font-bold text-base hover:bg-neutral-800 transition-all duration-300 text-center backdrop-blur-md">
+                    <a href="https://t.me/traffstatt" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-neutral-900/80 border border-neutral-800 text-slate-200 font-bold text-base hover:bg-neutral-800 transition-all duration-300 text-center backdrop-blur-md">
                         Become a Partner
                     </a>
                 </div>
@@ -353,7 +326,7 @@
                 </div>
             </div>
 
-            <a href="https://t.me/" target="_blank" rel="noopener noreferrer" data-modal-open class="inline-flex items-center px-10 py-5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-lg shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300">
+            <a href="https://t.me/traffstatt" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-10 py-5 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-lg shadow-xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300">
                 <i class="fa-brands fa-telegram mr-3 text-2xl"></i> Написать в Telegram
             </a>
         </div>
@@ -364,81 +337,7 @@
         © 2026 TraffStat. All rights reserved. Compliant traffic acquisition infrastructure.
     </footer>
 
-    <!-- Contact modal -->
-    <div id="contact-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-modal-close></div>
-        <div class="modal-panel relative z-10 w-full max-w-md rounded-2xl p-8 text-center">
-            <button type="button" data-modal-close aria-label="Close" class="absolute top-4 right-4 text-slate-400 hover:text-white transition text-xl leading-none">✕</button>
-            <span class="badge-gold text-xs inline-block mb-4">TraffStat Team</span>
-            <h2 id="modal-title" class="text-2xl font-extrabold text-white mb-3">Talk to <span class="gold-gradient-text">our team</span></h2>
-            <p class="text-sm text-slate-400 leading-7 mb-6">Message us on Telegram with your vertical, target <span class="hl-white">GEOs</span>, and <span class="hl-white">traffic goals</span>. We'll build your <span class="badge-gold">CPA/CPL</span> campaign plan from there.</p>
-            <div class="flex flex-col sm:flex-row gap-3 justify-center">
-                <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-accentGold to-amber-500 text-black font-bold text-sm shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300">
-                    <i class="fa-brands fa-telegram mr-2 text-base"></i> Open Telegram
-                </a>
-                <button type="button" data-modal-close class="px-6 py-3 rounded-xl bg-neutral-900/80 border border-neutral-800 text-slate-200 font-bold text-sm hover:bg-neutral-800 transition-all duration-300">Not now</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        (function () {
-            var modal = document.getElementById('contact-modal');
-            var panel = modal.querySelector('.modal-panel');
-            var closeButton = panel.querySelector('button[data-modal-close]');
-            var lastFocused = null;
-
-            function getFocusable() {
-                return panel.querySelectorAll('a[href], button:not([disabled])');
-            }
-
-            function openModal(event) {
-                event.preventDefault();
-                lastFocused = document.activeElement;
-                modal.classList.add('is-open');
-                modal.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden';
-                requestAnimationFrame(function () { closeButton.focus(); });
-            }
-
-            function closeModal() {
-                modal.classList.remove('is-open');
-                modal.setAttribute('aria-hidden', 'true');
-                document.body.style.overflow = '';
-                if (lastFocused && typeof lastFocused.focus === 'function') { lastFocused.focus(); }
-            }
-
-            document.querySelectorAll('[data-modal-open]').forEach(function (el) {
-                el.addEventListener('click', openModal);
-            });
-
-            modal.querySelectorAll('[data-modal-close]').forEach(function (el) {
-                el.addEventListener('click', closeModal);
-            });
-
-            document.addEventListener('focusin', function (event) {
-                if (!modal.classList.contains('is-open')) { return; }
-                if (!panel.contains(event.target)) { closeButton.focus(); }
-            });
-
-            document.addEventListener('keydown', function (event) {
-                if (!modal.classList.contains('is-open')) { return; }
-                if (event.key === 'Escape') { closeModal(); return; }
-                if (event.key === 'Tab') {
-                    var focusable = getFocusable();
-                    var first = focusable[0];
-                    var last = focusable[focusable.length - 1];
-                    if (event.shiftKey && document.activeElement === first) {
-                        event.preventDefault();
-                        last.focus();
-                    } else if (!event.shiftKey && document.activeElement === last) {
-                        event.preventDefault();
-                        first.focus();
-                    }
-                }
-            });
-        })();
-
         window.addEventListener('scroll', function() {
             const header = document.getElementById('main-header');
             if (window.scrollY > 50) {
