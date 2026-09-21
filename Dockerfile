@@ -4,6 +4,7 @@ RUN rm -f /etc/nginx/conf.d/default.conf
 
 COPY nginx.conf /etc/nginx/templates/default.conf.template
 COPY index.html /usr/share/nginx/html/index.html
+COPY favicon.ico /usr/share/nginx/html/favicon.ico
 COPY img /usr/share/nginx/html/img/
 
 ENV PORT=8080
